@@ -1,0 +1,20 @@
+
+.player-controls {
+    background-color: lightgray;
+    height: 7em;
+    padding: 1em;
+}
+
+.play-icon-container {
+    padding-left: 2em;
+    padding-right: 2em;
+    cursor: pointer
+}
+
+.backward-icon-container {
+    cursor: pointer
+}
+
+.forward-icon-container {
+    cursor: pointer
+}
