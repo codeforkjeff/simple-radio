@@ -80,7 +80,8 @@ function App() {
           return {
             ...state,
             ...{
-              currentStreamIndex: state.currentStreamIndex - 1
+              currentStreamIndex: state.currentStreamIndex - 1,
+              isPlaying: true
             }
           }
         }
@@ -90,7 +91,8 @@ function App() {
           return {
             ...state,
             ...{
-              currentStreamIndex: state.currentStreamIndex + 1
+              currentStreamIndex: state.currentStreamIndex + 1,
+              isPlaying: true
             }
           }
         }
