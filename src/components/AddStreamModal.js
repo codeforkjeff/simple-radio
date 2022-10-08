@@ -49,7 +49,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
 
   const addStream = (e, result) => {
     e.preventDefault()
-    streams.push(result)
+    dispatchPlayer({ type: 'add_stream', stream: result })
     setShow(false)
   }
 

@@ -94,9 +94,25 @@ function App() {
           }
         }
         return state
+      case 'add_stream':
+        return {
+          ...state,
+          ...{
+            streams: state.streams.concat([ action.stream ])
+          }
+        }
+      case 'remove_stream':
+        const filtered = state.streams.filter((s, index) => index !== action.stream_index)
+        return {
+          ...state,
+          ...{
+            currentStreamIndex: null,
+            streams: filtered
+          }
+        }
       default:
         throw new Error()
-    }    
+    }
   }
 
   const [playerState, dispatchPlayer] = useReducer(playerReducer, {
@@ -123,6 +139,7 @@ function App() {
           { playerState.currentStreamIndex !== null ? (
             <CurrentStream
               playerState={playerState}
+              dispatchPlayer={dispatchPlayer}
               />
           ) : (
             <>
@@ -133,7 +150,7 @@ function App() {
               <p>Try the number keys.</p>
             </>
           )}
-          <StreamPlayerControls 
+          <StreamPlayerControls
               playerState={playerState}
               dispatchPlayer={dispatchPlayer}
           />
