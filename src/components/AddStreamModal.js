@@ -65,7 +65,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
       </Modal.Header>
       <Modal.Body>
         { streamsDbLoadState === "loading" && (
-          <p>Loading, hang on ...</p>
+          <p>Loading list of stations, hang on ...</p>
         )}
         { streamsDbLoadState === "loaded" && (
           <>
