@@ -35,18 +35,18 @@ function StreamList(props) {
   return (
     <Container className="overflow-auto stream-list-container">
     <Row>
-      <Col md="10">
+      <Col>
+        <div className="float-end">
+            <div className="add-stream-icon-container"><PlusSquareFill size="25" onClick={handleShow}></PlusSquareFill></div>
+        </div>
         <h3>Streams</h3>
-      </Col>
-      <Col className="d-flex justify-content-end align-items-center">
-          <div className="add-stream-icon-container"><PlusSquareFill size="25" onClick={handleShow}></PlusSquareFill></div>
       </Col>
     </Row>
       {
         streams.map((stream, i) => {
           return (
             <Row key={i}>
-              <Col md="1" className="d-flex align-items-center">{ i < 10 ? `${i+1}.` : ""}</Col>
+              <Col md="1" className="d-flex d-none d-lg-inline-flex align-items-center">{ i < 10 ? `${i+1}.` : ""}</Col>
               <Col md="11">
               <BlockButton 
                 index={i}

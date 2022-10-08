@@ -144,13 +144,17 @@ function App() {
               dispatchPlayer={dispatchPlayer}
               />
           ) : (
-            <>
-              <h2>Simple Radio</h2>
-              <p>A simple stream player. This is
-                a <span className="text-danger">work in progress</span>.
-                Expect things to be incomplete or broken.</p>
-              <p>Try the number keys.</p>
-            </>
+            <Container>
+              <Row>
+                <Col>
+                  <h2>Simple Radio</h2>
+                  <p>A simple stream player. This is
+                    a <span className="text-danger">work in progress</span>.
+                    Expect things to be incomplete or broken.</p>
+                  <p>Try the number keys.</p>
+                </Col>
+              </Row>
+            </Container>
           )}
           <StreamPlayerControls
               playerState={playerState}
