@@ -16,8 +16,8 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
     { currentStream ? (
       <div className="current-stream">
         <div className="float-end">
-          <span className="edit-button-container"><PencilSquare size="25"></PencilSquare></span>
-          <span className="delete-button-container"><TrashFill size="25" onClick={removeStream}></TrashFill></span>
+          <span className="edit-button-container click-enabled"><PencilSquare size="25"></PencilSquare></span>
+          <span className="delete-button-container click-enabled"><TrashFill size="25" onClick={removeStream}></TrashFill></span>
         </div>
 
         <h2>{ currentStream.homepage ? (

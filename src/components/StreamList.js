@@ -37,7 +37,7 @@ function StreamList(props) {
     <Row>
       <Col>
         <div className="float-end">
-            <div className="add-stream-icon-container"><PlusSquareFill size="25" onClick={handleShow}></PlusSquareFill></div>
+            <div className="add-stream-icon-container click-enabled"><PlusSquareFill size="25" onClick={handleShow}></PlusSquareFill></div>
         </div>
         <h3>Streams</h3>
       </Col>
