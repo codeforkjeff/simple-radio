@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-stations": "node util/build_stations.js",
+    "build-stations": "node scripts/build_stations.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
