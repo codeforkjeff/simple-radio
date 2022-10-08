@@ -7,8 +7,6 @@ function StreamPlayerControls({ playerState: {streams, currentStreamIndex, isPla
 
     const visible = currentStreamIndex !== null
 
-    const currentStream = streams[currentStreamIndex]
-
     console.log(`isPlaying=${isPlaying}`)
 
     const pause = () => dispatchPlayer({ type: 'stop'})

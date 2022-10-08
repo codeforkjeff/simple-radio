@@ -24,7 +24,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
   }
 
   useEffect(() => {
-    if(show && streamsDbLoadState != "loaded") {
+    if(show && streamsDbLoadState !== "loaded") {
       setStreamsDbLoadState("loading")
       console.log("loading database")
       fetch("stations.json")
@@ -43,12 +43,11 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
   const search = (e) => {
     e.preventDefault()
     const needle = searchText.toUpperCase()
-    const results = streamsDb.filter((streamRecord) => streamRecord.name.toUpperCase().indexOf(needle) != -1)
+    const results = streamsDb.filter((streamRecord) => streamRecord.name.toUpperCase().indexOf(needle) !== -1)
     setSearchResults(results)
   }
 
-  const addStream = (e, result) => {
-    e.preventDefault()
+  const addStream = (result) => {
     dispatchPlayer({ type: 'add_stream', stream: result })
     setShow(false)
   }
@@ -79,7 +78,9 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
           <Container>
             {searchResults.map((result, index) => (
               <Row>
-                <Col md="12" key={index} ><a href="" onClick={(e) => addStream(e, result)}>{formatResult(result)}</a></Col>
+                <Col md="12" key={index}>
+                  <Button variant="link" onClick={() => addStream(result)}>{formatResult(result)}</Button>
+                </Col>
               </Row>
             ))}
           </Container>
