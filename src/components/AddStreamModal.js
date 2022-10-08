@@ -77,8 +77,8 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
           </Form>
           <Container>
             {searchResults.map((result, index) => (
-              <Row>
-                <Col md="12" key={index}>
+              <Row key={index}>
+                <Col md="12">
                   <Button variant="link" onClick={() => addStream(result)}>{formatResult(result)}</Button>
                 </Col>
               </Row>
