@@ -20,7 +20,11 @@ https://radio.codefork.com
 The stack is just React. Install Node.js (I used 16.x), then run:
 
 ```sh
+# install packages
 npm install
+# get radio station data
+npm run build-stations
+# start dev server
 npm start
 ```
 
