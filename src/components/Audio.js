@@ -1,5 +1,14 @@
 import React, { useEffect } from 'react';
 
+/*
+This should get rendered on initial page load, so that browser doesn't restrict
+playing audio. See "user interaction" restrictions:
+
+https://stackoverflow.com/questions/57504122/browser-denying-javascript-play
+
+React's render won't re-create the audio element as long as there's no state
+attached to it.
+*/
 const Audio = ({ playerState }) => {
   const { currentStreamIndex, streams, isPlaying } = playerState
 

@@ -129,7 +129,7 @@ function App() {
       playerState={playerState}
       dispatchPlayer={dispatchPlayer}
     />
-    <Container style={{marginTop: "1em"}}>
+    <Container className="app">
       <Row>
         <Col md={4}>
           <StreamList

@@ -14,9 +14,9 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
   return (
     <>
     { currentStream ? (
-      <div style={{padding: '1em', backgroundColor: "lightgray" }}>
+      <div className="current-stream">
         <div className="float-end">
-          <span style={{paddingRight: "1em"}}><PencilSquare size="25"></PencilSquare></span>
+          <span className="edit-button-container"><PencilSquare size="25"></PencilSquare></span>
           <span className="delete-button-container"><TrashFill size="25" onClick={removeStream}></TrashFill></span>
         </div>
 
