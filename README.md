@@ -37,3 +37,11 @@ npm run build
 ```
 
 Serve the contents of `build/` somewhere.
+
+## Deploy
+
+This just rsync's the built assets.
+
+```sh
+DEPLOY_TARGET="user@somewhere:/some/dir" npm run deploy
+```

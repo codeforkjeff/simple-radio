@@ -19,7 +19,8 @@
     "build": "scripts/build.sh",
     "build-stations": "node scripts/build_stations.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "scripts/deploy.sh"
   },
   "eslintConfig": {
     "extends": [
