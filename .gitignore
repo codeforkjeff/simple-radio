@@ -24,3 +24,5 @@ yarn-error.log*
 
 stations_all.json
 stations_reduced.json
+
+.local
