@@ -1,4 +1,5 @@
 import './App.css';
+import Audio from './components/Audio';
 import CurrentStream from './components/CurrentStream';
 import KeyPressListener from './components/KeyPressListener';
 import StreamList from './components/StreamList';
@@ -107,7 +108,8 @@ function App() {
           ...state,
           ...{
             currentStreamIndex: null,
-            streams: filtered
+            streams: filtered,
+            isPlaying: false,
           }
         }
       default:
@@ -153,6 +155,9 @@ function App() {
           <StreamPlayerControls
               playerState={playerState}
               dispatchPlayer={dispatchPlayer}
+          />
+          <Audio
+            playerState={playerState}
           />
         </Col>
       </Row>
