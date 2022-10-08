@@ -74,6 +74,26 @@ function App() {
         }
         console.log(newState)
         return newState
+      case 'skip_backward':
+        if(state.currentStreamIndex > 0) {
+          return {
+            ...state,
+            ...{
+              currentStreamIndex: state.currentStreamIndex - 1
+            }
+          }
+        }
+        return state
+      case 'skip_forward':
+        if(state.currentStreamIndex < state.streams.length - 1) {
+          return {
+            ...state,
+            ...{
+              currentStreamIndex: state.currentStreamIndex + 1
+            }
+          }
+        }
+        return state
       default:
         throw new Error()
     }    

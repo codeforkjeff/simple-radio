@@ -15,7 +15,7 @@ function BlockButton({ index, dispatchPlayer, children}) {
   }
   
   return (
-    <div className="d-grid gap-2" style={{"marginTop": "0.5em", "marginBottom": "0.5em"}}>
+    <div className="d-grid gap-2 button-container">
       <Button size="lg"
         onClick={handleClick}>{children}</Button>
     </div>
@@ -33,7 +33,7 @@ function StreamList(props) {
   const handleShow = () => setShowAddStreamModal(true);
 
   return (
-    <Container>
+    <Container className="overflow-auto stream-list-container">
     <Row>
       <Col md="10">
         <h3>Streams</h3>

@@ -19,17 +19,9 @@ function StreamPlayerControls({ playerState: {streams, currentStreamIndex, isPla
       dispatchPlayer({ type: 'play'})
     }
   
-    const skipBackward = () => {
-      if(currentStreamIndex > 0) {
-        dispatchPlayer({ type: 'play_stream', currentStreamIndex: currentStreamIndex - 1})
-      }
-    }
+    const skipBackward = () => dispatchPlayer({ type: 'skip_backward' })
   
-    const skipForward = () => {
-      if(currentStreamIndex < streams.length - 1) {
-        dispatchPlayer({ type: 'play_stream', currentStreamIndex: currentStreamIndex + 1})
-      }
-    }
+    const skipForward = () => dispatchPlayer({ type: 'skip_forward' })
   
     useEffect(() => {
       console.log("in effect, isPlaying=" + isPlaying)

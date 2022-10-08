@@ -1,3 +1,12 @@
 .add-stream-icon-container {
     cursor: pointer
 }
+
+.button-container {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em
+}
+
+.stream-list-container {
+    max-height: 100vh
+}
