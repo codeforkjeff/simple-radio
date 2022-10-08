@@ -27,7 +27,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
     if(show && streamsDbLoadState !== "loaded") {
       setStreamsDbLoadState("loading")
       console.log("loading database")
-      fetch("stations.json")
+      fetch("stations_reduced.json")
         .then(res => res.json())
         .then((result) => {
           console.log("got result")
@@ -35,7 +35,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
           setStreamsDbLoadState("loaded")
         })
         .catch((error) => {
-          console.log("whoa")
+          alert("Error loading stations data: " + error)
         })
     }
   })
