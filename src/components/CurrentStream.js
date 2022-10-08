@@ -16,7 +16,7 @@ function CurrentStream({ playerState: { streams, currentStreamIndex } }) {
         </div>
 
         <h2>{ currentStream.homepage ? (
-          <a href={currentStream.homepage}>{currentStream.name}</a>
+          <a href={currentStream.homepage} target="_blank">{currentStream.name}</a>
         ) : (
           <span>{currentStream.name}</span>
         )}</h2>

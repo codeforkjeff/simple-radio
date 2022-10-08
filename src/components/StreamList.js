@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { PlusSquareFill } from 'react-bootstrap-icons';
+import AddStreamModal from './AddStreamModal.js';
+import './StreamList.css';
 
 
 function BlockButton({ index, dispatchPlayer, children}) {
@@ -20,8 +22,16 @@ function BlockButton({ index, dispatchPlayer, children}) {
     );
 }
   
-function StreamList({ playerState: { streams }, dispatchPlayer }) {
+function StreamList(props) {
+  const { playerState } = props
+  const { playerState: { streams }, dispatchPlayer } = props
+
   console.log("rendering StreamList")
+
+  const [showAddStreamModal, setShowAddStreamModal] = useState(false);
+
+  const handleShow = () => setShowAddStreamModal(true);
+
   return (
     <Container>
     <Row>
@@ -29,7 +39,7 @@ function StreamList({ playerState: { streams }, dispatchPlayer }) {
         <h3>Streams</h3>
       </Col>
       <Col className="d-flex justify-content-end align-items-center">
-          <PlusSquareFill size="25"></PlusSquareFill>
+          <div className="add-stream-icon-container"><PlusSquareFill size="25" onClick={handleShow}></PlusSquareFill></div>
       </Col>
     </Row>
       {
@@ -46,6 +56,12 @@ function StreamList({ playerState: { streams }, dispatchPlayer }) {
           )
         })
       }
+    <AddStreamModal
+      show={showAddStreamModal}
+      setShow={setShowAddStreamModal}
+      playerState={playerState}
+      dispatchPlayer={dispatchPlayer}
+    />
     </Container>
   )
 }
