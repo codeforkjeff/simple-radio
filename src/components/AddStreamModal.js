@@ -38,7 +38,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
           alert("Error loading stations data: " + error)
         })
     }
-  })
+  }, [show])
 
   const search = (e) => {
     e.preventDefault()
