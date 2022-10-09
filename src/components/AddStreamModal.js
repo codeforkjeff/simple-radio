@@ -69,13 +69,17 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
         )}
         { streamsDbLoadState === "loaded" && (
           <>
-          <Form onSubmit={search}>
-            <Form.Group className="md-3" controlId="formBasicEmail">
-              <Form.Label>Search</Form.Label>
-              <Form.Control type="text" onChange={(e) => handleSearchTextChange(e)}/>
-            </Form.Group>
-          </Form>
           <Container>
+            <Row>
+              <Col md="12">
+              <Form onSubmit={search}>
+                <Form.Group className="md-3" controlId="formBasicEmail">
+                  <Form.Label>Search</Form.Label>
+                  <Form.Control type="text" onChange={(e) => handleSearchTextChange(e)}/>
+                </Form.Group>
+              </Form>
+              </Col>
+            </Row>
             {searchResults.map((result, index) => (
               <Row key={index}>
                 <Col md="12">
