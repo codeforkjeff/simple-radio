@@ -8,5 +8,3 @@ react-scripts build || exit 1
 GIT_SHA=$(git rev-parse --short HEAD)
 
 echo $GIT_SHA > build/version.txt
-
-rsync -avhr --delete build/ jeff@codefork.com:/var/www/radio.codefork.com

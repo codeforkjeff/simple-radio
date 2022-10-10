@@ -3,7 +3,7 @@ FROM debian:bullseye-slim
 
 RUN --mount=type=cache,mode=0777,target=/var/cache/apt \
 	apt-get update && \
-    apt-get install -y curl python3 python3-pip python3-venv sqlite3 vim virtualenvwrapper
+    apt-get install -y curl git python3 python3-pip python3-venv sqlite3 vim virtualenvwrapper
 
 RUN --mount=type=cache,mode=0777,target=/var/cache/apt \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
@@ -25,7 +25,7 @@ RUN npm ci
 
 COPY . .
 
-RUN npm build
+RUN npm run build
 
 EXPOSE 3000 8000
 
