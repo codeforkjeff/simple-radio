@@ -1,0 +1,51 @@
+
+version: "3.9"
+
+services:
+
+  # nginx
+  # in dev, proxy to frontend
+  # in prod, serve files directly
+  proxy:
+    depends_on:
+      - api
+    image: nginx
+    networks:
+     - all
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/code
+      - data:/data
+
+  # only start this in dev
+  frontend-dev:
+    build: .
+    command: "frontend"
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    networks:
+     - all
+    volumes:
+      - ./src:/opt/simple-radio/src
+
+  api:
+    build: .
+    command: "api"
+    environment:
+      SIMPLE_RADIO_DB: "/opt/simple-radio-data/simple_radio.db"
+    networks:
+     - all
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/opt/simple-radio/api
+      - data:/opt/simple-radio-data
+
+networks:
+  all:
+
+volumes:
+  data: {}

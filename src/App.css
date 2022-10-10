@@ -2,6 +2,10 @@
   margin-top: 1em
 }
 
+.sync-container {
+  margin-bottom: 1em
+}
+
 /* global styles */
 
 /* indicate things are clickable or diabled using hover color changes */

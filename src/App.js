@@ -2,6 +2,7 @@ import './App.css';
 import Audio from './components/Audio';
 import CurrentStream from './components/CurrentStream';
 import KeyPressListener from './components/KeyPressListener';
+import Sync from './components/Sync';
 import StreamList from './components/StreamList';
 import StreamPlayerControls from './components/StreamPlayerControls';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,39 +12,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 function App() {
-
-  const streams = [
-    {
-      description: 'Seattle NPR station',
-      name: 'KEXP',
-      url: 'https://kexp-mp3-128.streamguys1.com/kexp128.mp3',
-      homepage: 'https://kexp.org'
-    },
-    {
-      description: 'Seattle NPR station',
-      name: 'KUOW - 94.9',
-      url: 'https://14993.live.streamtheworld.com/KUOWFM_HIGH_MP3.mp3'
-    },
-    {
-      name: 'KISW',
-      url: 'https://playerservices.streamtheworld.com/api/livestream-redirect/KISWFM.mp3'
-    },
-    {
-      description: "The End",
-      name: 'KNDD',
-      url: 'https://playerservices.streamtheworld.com/api/livestream-redirect/KNDDFMAAC.aac'
-    },
-    {
-      description: "Electronica",
-      name: 'KNHC - 89.5 FM',
-      url: 'http://streams.c895.org/live'
-    },
-    {
-      description: "in Philly",
-      name: 'WXPN',
-      url: 'https://wxpn.xpn.org/xpnmp3hi'
-    }
-  ]
 
   console.log("rendering App")
 
@@ -101,7 +69,8 @@ function App() {
         return {
           ...state,
           ...{
-            streams: state.streams.concat([ action.stream ])
+            streams: state.streams.concat([ action.stream ]),
+            dirty: true
           }
         }
       case 'remove_stream':
@@ -112,6 +81,23 @@ function App() {
             currentStreamIndex: null,
             streams: filtered,
             isPlaying: false,
+            dirty: true
+          }
+        }
+      case 'set_hash':
+        return {
+          ...state,
+          ...{
+            hash: action.hash,
+            dirty: false
+          }
+        }
+      case 'set_hash_and_streams':
+        return {
+          ...state,
+          ...{
+            hash: action.hash,
+            streams: action.streams,
           }
         }
       default:
@@ -120,7 +106,9 @@ function App() {
   }
 
   const [playerState, dispatchPlayer] = useReducer(playerReducer, {
-    streams: streams,
+    hash: "3939c14eb6",
+    dirty: false,
+    streams: [],
     currentStreamIndex: null,
     isPlaying: false,
   });
@@ -140,34 +128,51 @@ function App() {
           />
         </Col>
         <Col md={8}>
-          { playerState.currentStreamIndex !== null ? (
-            <CurrentStream
-              playerState={playerState}
-              dispatchPlayer={dispatchPlayer}
-              />
-          ) : (
-            <Container>
+          <Container>
+            <Row className="sync-container">
+              <Col md="12">
+                <Sync
+                  playerState={playerState}
+                  dispatchPlayer={dispatchPlayer}
+                />
+              </Col>
+            </Row>
+            { playerState.currentStreamIndex !== null && (
               <Row>
-                <Col>
-                  <h2>Simple Radio</h2>
-                  <p>A simple stream player. This is
-                    a <span className="text-danger">work in progress</span>.
-                    Expect things to be incomplete or broken.</p>
-                  <p>Try the number keys.</p>
+                <Col md="12">
+                <CurrentStream
+                  playerState={playerState}
+                  dispatchPlayer={dispatchPlayer}
+                  />
+                  </Col>
+              </Row>
+            )}
+            { playerState.currentStreamIndex !== null && (
+              <Row>
+                <Col md="12">
+                <StreamPlayerControls
+                    playerState={playerState}
+                    dispatchPlayer={dispatchPlayer}
+                />
                 </Col>
               </Row>
-            </Container>
-          )}
-          <StreamPlayerControls
-              playerState={playerState}
-              dispatchPlayer={dispatchPlayer}
-          />
-          <Audio
-            playerState={playerState}
-          />
+            )}
+            { playerState.currentStreamIndex === null && (
+              <Row md="12">
+                      <h2>Simple Radio</h2>
+                      <p>A simple stream player. This is
+                        a <span className="text-danger">work in progress</span>.
+                        Expect things to be incomplete or broken.</p>
+                      <p>Try the number keys.</p>
+              </Row>
+            )}
+          </Container>
         </Col>
       </Row>
     </Container>
+    <Audio
+    playerState={playerState}
+    />
     </>
   );
 }

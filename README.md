@@ -10,22 +10,14 @@ https://radio.codefork.com
 
 ## Features / Goals
 
-- No backend (KISS)
 - TODO: Add streams/stations from a searchable list
 - TODO: Save presets to html5 local storage
 - TODO: show "now playing" info from streams
 
 ## Local Development
 
-The stack is just React. Install Node.js (I used 16.x), then run:
-
-```sh
-# install packages
-npm install
-# get radio station data
-npm run build-stations
-# start dev server
-npm start
+```
+docker compose up --build
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
