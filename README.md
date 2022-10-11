@@ -17,7 +17,7 @@ https://radio.codefork.com
 ## Local Development
 
 ```sh
-ENV=dev docker compose up --build
+docker compose up --build
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
