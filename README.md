@@ -16,8 +16,8 @@ https://radio.codefork.com
 
 ## Local Development
 
-```
-docker compose up --build
+```sh
+docker compose --profile dev up --build
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -32,8 +32,6 @@ Serve the contents of `build/` somewhere.
 
 ## Deploy
 
-This just rsync's the built assets.
-
 ```sh
-DEPLOY_TARGET="user@somewhere:/some/dir" npm run deploy
+docker compose --profile prod up --build
 ```

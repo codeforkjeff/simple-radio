@@ -1,5 +1,5 @@
 
-FROM debian:bullseye-slim
+FROM debian:bullseye-slim AS debian
 
 RUN --mount=type=cache,mode=0777,target=/var/cache/apt \
 	apt-get update && \
@@ -18,15 +18,33 @@ COPY api/requirements.txt api/requirements.txt
 RUN --mount=type=cache,mode=0777,target=/var/cache/pip \
     pip install -r api/requirements.txt
 
+COPY api .
+
 COPY package.json .
 COPY package-lock.json .
 
 RUN npm ci
 
-COPY . .
+COPY public ./public
+COPY src ./src
+COPY scripts ./scripts
 
 RUN npm run build
+
+COPY docker-entrypoint.sh .
 
 EXPOSE 3000 8000
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
+
+####
+
+FROM nginx as nginx
+
+ARG SERVER_NAME radio.codefork.com
+
+COPY --from=debian /opt/simple-radio/build /usr/share/nginx/html
+
+COPY nginx/default.conf /tmp/default.conf
+
+RUN cat /tmp/default.conf | envsubst SERVER_NAME > /etc/nginx/conf.d/default.conf
