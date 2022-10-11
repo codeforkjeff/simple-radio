@@ -29,6 +29,8 @@ COPY public ./public
 COPY src ./src
 COPY scripts ./scripts
 
+RUN npm run build-stations
+
 RUN npm run build
 
 COPY docker-entrypoint.sh .
