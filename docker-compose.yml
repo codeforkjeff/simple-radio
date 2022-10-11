@@ -12,7 +12,7 @@ services:
     networks:
      - all
     ports:
-      - "8081:80"
+      - "3001:80"
     profiles: ["prod"]
     volumes:
       - .:/code
