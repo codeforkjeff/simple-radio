@@ -3,35 +3,10 @@ version: "3.9"
 
 services:
 
-  proxy:
-    depends_on:
-      - api
-    build:
-      context: .
-      target: nginx
-    networks:
-     - all
-    ports:
-      - "3001:80"
-    profiles: ["prod"]
-    volumes:
-      - .:/code
-      - data:/data
-
-  frontend-dev:
-    build:
-      context: .
-      target: debian
-    command: "frontend"
-    depends_on:
-      - api
-    ports:
-      - "3000:3000"
-    profiles: ["dev"]
-    networks:
-     - all
-    volumes:
-      - ./src:/opt/simple-radio/src
+  frontend:
+    extends:
+      file: common.yml
+      service: "frontend-${ENV:-dev}"
 
   api:
     build:
@@ -40,6 +15,7 @@ services:
     command: "api"
     environment:
       SIMPLE_RADIO_DB: "/opt/simple-radio-data/simple_radio.db"
+      ENV: "${ENV:-dev}"
     networks:
      - all
     ports:

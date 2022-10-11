@@ -17,7 +17,7 @@ https://radio.codefork.com
 ## Local Development
 
 ```sh
-docker compose --profile dev up --build
+ENV=dev docker compose up --build
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -33,5 +33,5 @@ Serve the contents of `build/` somewhere.
 ## Deploy
 
 ```sh
-docker compose --profile prod up --build
+ENV=prod docker compose up --build
 ```
