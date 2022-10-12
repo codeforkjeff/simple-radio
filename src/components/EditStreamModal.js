@@ -10,7 +10,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import EditStream from './EditStream';
 
 
-function EditStreamModal({ show, setShow, streamRef, streamIndex, dispatchPlayer }) {
+function EditStreamModal({ show, setShow, stream, streamIndex, dispatchPlayer }) {
 
   const handleClose = () => setShow(false)
 
@@ -29,7 +29,7 @@ function EditStreamModal({ show, setShow, streamRef, streamIndex, dispatchPlayer
           <Row>
             <Col md="12">
               <EditStream
-                streamRef={streamRef}
+                stream={stream}
                 saveStream={saveStream}
                 cancel={handleClose}
               />

@@ -14,10 +14,7 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
   
   const [showEditStreamModal, setShowEditStreamModal] = useState(false);
 
-  const streamRef = useRef({})
-
   const handleEditClick = () => {
-    streamRef.current = {... currentStream}
     setShowEditStreamModal(true)
   }
 
@@ -39,7 +36,7 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
         <EditStreamModal
           show={showEditStreamModal}
           setShow={setShowEditStreamModal}
-          streamRef={streamRef}
+          stream={currentStream}
           streamIndex={currentStreamIndex}
           dispatchPlayer={dispatchPlayer}
         />

@@ -61,8 +61,6 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
     )
   }
 
-  const customStream = useRef({})
-
   return (
     <Modal show={show} onHide={handleClose} size="xl">
       <Modal.Header closeButton>
@@ -103,7 +101,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
         </Tab>
         <Tab eventKey="custom" title="Custom">
           <EditStream
-            streamRef={customStream}
+            stream={{}}
             addStream={addStream}
           />
         </Tab>
