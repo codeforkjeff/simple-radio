@@ -1,0 +1,4 @@
+.save-streams-button {
+    /* inputs in input-group has this rule, which makes the element take up as much width as possible */
+    flex: 1 1 auto;
+}

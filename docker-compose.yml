@@ -1,0 +1,31 @@
+
+version: "3.9"
+
+services:
+
+  frontend:
+    extends:
+      file: common.yml
+      service: "frontend-${ENV:-dev}"
+
+  api:
+    build:
+      context: .
+      target: debian
+    command: "api"
+    environment:
+      SIMPLE_RADIO_DB: "/opt/simple-radio-data/simple_radio.db"
+      ENV: "${ENV:-dev}"
+    networks:
+     - all
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/opt/simple-radio/api
+      - data:/opt/simple-radio-data
+
+networks:
+  all:
+
+volumes:
+  data: {}

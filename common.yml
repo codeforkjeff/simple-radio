@@ -1,0 +1,33 @@
+
+services:
+
+  react-dev:
+    build:
+      context: .
+      target: debian
+    command: "frontend"
+    ports:
+      - "3000:3000"
+    networks:
+     - all
+    volumes:
+      - ./src:/opt/simple-radio/src
+
+  nginx:
+    build:
+      context: .
+      target: nginx
+    networks:
+     - all
+    ports:
+      - "3000:80"
+    volumes:
+      - .:/code
+
+  frontend-dev:
+    extends:
+      service: react-dev
+      
+  frontend-prod:
+    extends:
+      service: nginx

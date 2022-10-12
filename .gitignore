@@ -22,5 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+__pycache__
+*.pyc
+
 stations_all.json
 stations_reduced.json
