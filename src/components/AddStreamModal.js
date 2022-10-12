@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import EditStream from './EditStream';
 
 
 function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlayer }) {
@@ -58,39 +61,54 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
     )
   }
 
+  const customStream = useRef({})
+
   return (
-    <Modal show={show} onHide={handleClose} size="lg">
+    <Modal show={show} onHide={handleClose} size="xl">
       <Modal.Header closeButton>
         <Modal.Title>Add a Stream</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        { streamsDbLoadState === "loading" && (
-          <p>Loading list of stations, hang on ...</p>
-        )}
-        { streamsDbLoadState === "loaded" && (
-          <>
-          <Container>
-            <Row>
-              <Col md="12">
-              <Form onSubmit={search}>
-                <Form.Group className="md-3" controlId="formBasicEmail">
-                  <Form.Label>Search</Form.Label>
-                  <Form.Control type="text" onChange={(e) => handleSearchTextChange(e)}/>
-                </Form.Group>
-              </Form>
-              </Col>
-            </Row>
-            {searchResults.map((result, index) => (
-              <Row key={index}>
+      <Tabs
+        defaultActiveKey="search"
+        id="add-stream-tabs"
+        className="mb-3"
+      >
+        <Tab eventKey="search" title="Search">
+          { streamsDbLoadState === "loading" && (
+            <p>Loading list of stations, hang on ...</p>
+          )}
+          { streamsDbLoadState === "loaded" && (
+            <>
+            <Container>
+              <Row>
                 <Col md="12">
-                  <Button variant="link" onClick={() => addStream(result)}>{formatResult(result)}</Button>
+                <Form onSubmit={search}>
+                  <Form.Group className="md-3" controlId="formBasicEmail">
+                    <Form.Control type="text" onChange={(e) => handleSearchTextChange(e)}/>
+                  </Form.Group>
+                </Form>
                 </Col>
               </Row>
-            ))}
-          </Container>
-          </>
-        )}
-        </Modal.Body>
+              {searchResults.map((result, index) => (
+                <Row key={index}>
+                  <Col md="12">
+                    <Button variant="link" onClick={() => addStream(result)}>{formatResult(result)}</Button>
+                  </Col>
+                </Row>
+              ))}
+            </Container>
+            </>
+          )}
+        </Tab>
+        <Tab eventKey="custom" title="Custom">
+          <EditStream
+            streamRef={customStream}
+            addStream={addStream}
+          />
+        </Tab>
+      </Tabs>
+      </Modal.Body>
     </Modal>
   )
 }

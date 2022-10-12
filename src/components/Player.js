@@ -76,6 +76,15 @@ function Player() {
             dirty: true
           }
         }
+      case 'edit_stream':
+        const replaced = state.streams.map((s, index) => index === action.stream_index ? action.stream : s)
+        return {
+          ...state,
+          ...{
+            streams: replaced,
+            dirty: true
+          }
+        }
       case 'remove_stream':
         const filtered = state.streams.filter((s, index) => index !== action.stream_index)
         return {

@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import { PencilSquare, TrashFill } from 'react-bootstrap-icons';
+import EditStreamModal from './EditStreamModal';
 import './CurrentStream.css';
 
 function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchPlayer }) {
@@ -10,13 +11,22 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
   const removeStream = () => {
     dispatchPlayer({ type: 'remove_stream', stream_index: currentStreamIndex })
   }
+  
+  const [showEditStreamModal, setShowEditStreamModal] = useState(false);
+
+  const streamRef = useRef({})
+
+  const handleEditClick = () => {
+    streamRef.current = {... currentStream}
+    setShowEditStreamModal(true)
+  }
 
   return (
     <>
     { currentStream ? (
       <div className="current-stream">
         <div className="float-end">
-          <span className="edit-button-container click-enabled"><PencilSquare size="25"></PencilSquare></span>
+          <span className="edit-button-container click-enabled"><PencilSquare size="25" onClick={handleEditClick}></PencilSquare></span>
           <span className="click-enabled"><TrashFill size="25" onClick={removeStream}></TrashFill></span>
         </div>
 
@@ -26,6 +36,13 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
           <span>{currentStream.name}</span>
         )}</h2>
         <h3>{currentStream.description ? currentStream.description : (<Fragment>&nbsp;</Fragment>)}</h3>
+        <EditStreamModal
+          show={showEditStreamModal}
+          setShow={setShowEditStreamModal}
+          streamRef={streamRef}
+          streamIndex={currentStreamIndex}
+          dispatchPlayer={dispatchPlayer}
+        />
 
       </div>
     ) : (
