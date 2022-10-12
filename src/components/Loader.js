@@ -10,7 +10,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { Clipboard2 } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 
-function Loader({ playerState: { streamListId, dirty, streams }, dispatchPlayer }) {
+function Loader({ streamListId, dispatchPlayer, setError }) {
   
   console.log(`loading Loader with ${streamListId}`)
   
@@ -31,8 +31,7 @@ function Loader({ playerState: { streamListId, dirty, streams }, dispatchPlayer 
             if(res.status !== 404) {
               return res.json()
             } else {
-              // TODO: indicate that we couldn't load the stream list
-              throw new Error('Got a 404 trying to load stream list');
+              setError(`streamListId ${streamListId} not found`)
             }
           })
           .then((result) => {

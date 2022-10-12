@@ -6,7 +6,7 @@ import Loader from './Loader';
 import StreamList from './StreamList';
 import StreamPlayerControls from './StreamPlayerControls';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,7 +16,7 @@ function Player() {
 
   const { streamListId } = useParams()
 
-  console.log(`rendering App with streamListId=${streamListId}`)
+  console.log(`rendering Player with streamListId=${streamListId}`)
 
   const playerReducer = (state, action) => {
     switch(action.type) {
@@ -110,12 +110,14 @@ function Player() {
   }
 
   const [playerState, dispatchPlayer] = useReducer(playerReducer, {
-    streamListId: streamListId,
+    streamListId: null,
     dirty: false,
     streams: [],
     currentStreamIndex: null,
     isPlaying: false,
   });
+
+  const [ error, setError ] = useState(false)
 
   return (
     <>
@@ -124,54 +126,64 @@ function Player() {
       dispatchPlayer={dispatchPlayer}
     />
     <Loader
-      playerState={playerState}
+      streamListId={streamListId}
       dispatchPlayer={dispatchPlayer}
+      setError={setError}
     />
-    <Container className="app">
-      <Row>
-        <Col md={4}>
-          <StreamList
-            playerState={playerState}
-            dispatchPlayer={dispatchPlayer}
-          />
-        </Col>
-        <Col md={8}>
-          <Container>
-            { playerState.currentStreamIndex !== null && (
-              <Row>
-                <Col md="12">
-                <CurrentStream
-                  playerState={playerState}
-                  dispatchPlayer={dispatchPlayer}
-                  />
-                  </Col>
-              </Row>
-            )}
-            { playerState.currentStreamIndex !== null && (
-              <Row>
-                <Col md="12">
-                <StreamPlayerControls
+    { playerState.streamListId && (
+      <Container className="app">
+        <Row>
+          <Col md={4}>
+            <StreamList
+              playerState={playerState}
+              dispatchPlayer={dispatchPlayer}
+            />
+          </Col>
+          <Col md={8}>
+            <Container>
+              { playerState.currentStreamIndex !== null && (
+                <Row>
+                  <Col md="12">
+                  <CurrentStream
                     playerState={playerState}
                     dispatchPlayer={dispatchPlayer}
-                />
-                </Col>
-              </Row>
-            )}
-            { playerState.currentStreamIndex === null && (
-              <Row md="12">
-                      <h2>Simple Radio</h2>
-                      <p>A simple stream player. This is
-                        a <span className="text-danger">work in progress</span>.
-                        Expect things to be incomplete or broken.</p>
-                      <p>Try the number keys.</p>
-              </Row>
-            )}
-          </Container>
-        </Col>
-      </Row>
-    </Container>
+                    />
+                    </Col>
+                </Row>
+              )}
+              { playerState.currentStreamIndex !== null && (
+                <Row>
+                  <Col md="12">
+                  <StreamPlayerControls
+                      playerState={playerState}
+                      dispatchPlayer={dispatchPlayer}
+                  />
+                  </Col>
+                </Row>
+              )}
+              { playerState.currentStreamIndex === null && (
+                <Row md="12">
+                        <h2>Simple Radio</h2>
+                        <p>A simple stream player. This is
+                          a <span className="text-danger">work in progress</span>.
+                          Expect things to be incomplete or broken.</p>
+                        <p>Try the number keys.</p>
+                </Row>
+              )}
+            </Container>
+          </Col>
+        </Row>
+      </Container>
+    )}
+    { error && (
+      <Container className="app">
+        <h1>Whoops!</h1>
+        <p>Sorry, couldn't load the stream list. This error occurred: <span className="fw-bold">{error}</span></p>
+        <p>Check that you typed or pasted the URL correctly. Or try <a href="/">starting over</a>.</p>
+      </Container>
+    )}
     <Audio
-    playerState={playerState}
+      playerState={playerState}
     />
     </>
   );
