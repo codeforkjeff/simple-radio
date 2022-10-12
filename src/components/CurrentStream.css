@@ -2,10 +2,6 @@
     padding-right: 1em
 }
 
-.delete-button-container {
-    cursor: pointer
-}
-
 .current-stream {
     padding: 1em;
     background-color: lightgray

@@ -22,3 +22,12 @@
 .click-disabled {
   color: gray
 }
+
+.click-warning-enabled {
+  color: #ffc107;
+  cursor: pointer
+}
+
+.click-warning-enabled:hover {
+  color: #ffca2c
+}

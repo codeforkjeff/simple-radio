@@ -1,19 +1,22 @@
-import './App.css';
-import Audio from './components/Audio';
-import CurrentStream from './components/CurrentStream';
-import KeyPressListener from './components/KeyPressListener';
-import Sync from './components/Sync';
-import StreamList from './components/StreamList';
-import StreamPlayerControls from './components/StreamPlayerControls';
+import './Player.css';
+import Audio from './Audio';
+import CurrentStream from './CurrentStream';
+import KeyPressListener from './KeyPressListener';
+import Loader from './Loader';
+import StreamList from './StreamList';
+import StreamPlayerControls from './StreamPlayerControls';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useReducer } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import { useParams } from 'react-router-dom';
 
-function App() {
+function Player() {
 
-  console.log("rendering App")
+  const { streamListId } = useParams()
+
+  console.log(`rendering App with streamListId=${streamListId}`)
 
   const playerReducer = (state, action) => {
     switch(action.type) {
@@ -84,29 +87,30 @@ function App() {
             dirty: true
           }
         }
-      case 'set_hash':
+      case 'set_streamlistid':
         return {
           ...state,
           ...{
-            hash: action.hash,
+            streamListId: action.streamListId,
             dirty: false
           }
         }
-      case 'set_hash_and_streams':
+      case 'set_streamlistid_and_streams':
         return {
           ...state,
           ...{
-            hash: action.hash,
+            streamListId: action.streamListId,
             streams: action.streams,
+            dirty: false
           }
         }
       default:
-        throw new Error()
+        throw new Error(`unrecognized type: ${action.type}`)
     }
   }
 
   const [playerState, dispatchPlayer] = useReducer(playerReducer, {
-    hash: "3939c14eb6",
+    streamListId: streamListId,
     dirty: false,
     streams: [],
     currentStreamIndex: null,
@@ -116,6 +120,10 @@ function App() {
   return (
     <>
     <KeyPressListener
+      playerState={playerState}
+      dispatchPlayer={dispatchPlayer}
+    />
+    <Loader
       playerState={playerState}
       dispatchPlayer={dispatchPlayer}
     />
@@ -129,14 +137,6 @@ function App() {
         </Col>
         <Col md={8}>
           <Container>
-            <Row className="sync-container">
-              <Col md="12">
-                <Sync
-                  playerState={playerState}
-                  dispatchPlayer={dispatchPlayer}
-                />
-              </Col>
-            </Row>
             { playerState.currentStreamIndex !== null && (
               <Row>
                 <Col md="12">
@@ -177,4 +177,4 @@ function App() {
   );
 }
 
-export default App;
+export default Player;

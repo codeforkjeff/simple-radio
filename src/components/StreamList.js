@@ -5,10 +5,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { PlusSquareFill } from 'react-bootstrap-icons';
 import AddStreamModal from './AddStreamModal.js';
+import SaveButton from './SaveButton'
 import './StreamList.css';
 
-
-function BlockButton({ index, dispatchPlayer, children}) {
+function StreamButton({ index, dispatchPlayer, children}) {
 
   const handleClick = () => {
     dispatchPlayer({ type: 'play_stream', currentStreamIndex: index })
@@ -37,7 +37,11 @@ function StreamList(props) {
     <Row>
       <Col>
         <div className="float-end">
-            <div className="add-stream-icon-container click-enabled"><PlusSquareFill size="25" onClick={handleShow}></PlusSquareFill></div>
+            <span className="save-button-container click-warning-enabled"><SaveButton
+              playerState={playerState}
+              dispatchPlayer={dispatchPlayer}
+            /></span>
+            <span className="click-enabled"><PlusSquareFill size="25" onClick={handleShow}></PlusSquareFill></span>
         </div>
         <h3>Streams</h3>
       </Col>
@@ -48,9 +52,9 @@ function StreamList(props) {
             <Row key={i}>
               <Col md="1" className="d-flex d-none d-lg-inline-flex align-items-center">{ i < 10 ? `${i+1}.` : ""}</Col>
               <Col md="11">
-              <BlockButton 
+              <StreamButton
                 index={i}
-                dispatchPlayer={dispatchPlayer}>{stream.name}</BlockButton>
+                dispatchPlayer={dispatchPlayer}>{stream.name}</StreamButton>
               </Col>
             </Row>
           )

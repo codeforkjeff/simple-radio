@@ -27,7 +27,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
     if(show && streamsDbLoadState !== "loaded") {
       setStreamsDbLoadState("loading")
       console.log("loading database")
-      fetch("stations_reduced.json")
+      fetch(`/stations_reduced.json?${Date.now()}`)
         .then(res => res.json())
         .then((result) => {
           console.log("got result")
