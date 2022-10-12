@@ -1,5 +1,5 @@
 
-FROM debian:bullseye-slim AS debian
+FROM debian:bullseye-slim AS debian-src
 
 RUN --mount=type=cache,mode=0777,target=/var/cache/apt \
 	apt-get update && \
@@ -29,10 +29,6 @@ COPY public ./public
 COPY src ./src
 COPY scripts ./scripts
 
-RUN npm run build-stations
-
-RUN npm run build
-
 COPY docker-entrypoint.sh .
 
 EXPOSE 3000 8000
@@ -41,11 +37,19 @@ ENTRYPOINT ["./docker-entrypoint.sh"]
 
 ####
 
+FROM debian-src as debian-compiled
+
+RUN npm run build-stations
+
+RUN npm run build
+
+####
+
 FROM nginx as nginx
 
 ARG SERVER_NAME radio.codefork.com
 
-COPY --from=debian /opt/simple-radio/build /usr/share/nginx/html
+COPY --from=debian-compiled /opt/simple-radio/build /usr/share/nginx/html
 
 COPY nginx/default.conf /tmp/default.conf
 
