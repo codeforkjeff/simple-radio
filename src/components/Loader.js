@@ -1,25 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Overlay from 'react-bootstrap/Overlay';
-import Row from 'react-bootstrap/Row';
-import Tooltip from 'react-bootstrap/Tooltip';
-import { Clipboard2 } from 'react-bootstrap-icons';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function Loader({ streamListId, dispatchPlayer, setError }) {
   
   console.log(`loading Loader with ${streamListId}`)
   
   const [ initialLoad, setInitialLoad ] = useState(true)
-
-  const [showTooltip, setShowTooltip] = useState(false);
-  const tooltipTarget = useRef(null);
-  
-  const navigate = useNavigate()
 
   useEffect(() => {
     if(initialLoad) {

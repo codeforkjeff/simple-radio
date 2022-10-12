@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PlayCircleFill, StopCircleFill, SkipForwardFill, SkipBackwardFill } from 'react-bootstrap-icons';
 import './StreamPlayerControls.css';
 
