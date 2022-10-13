@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useParams } from 'react-router-dom';
+import { useBeforeunload } from 'react-beforeunload';
 
 function Player() {
 
@@ -124,6 +125,12 @@ function Player() {
     streams: [],
     currentStreamIndex: null,
     isPlaying: false,
+  });
+
+  useBeforeunload((event) => {
+    if (playerState.dirty) {
+      event.preventDefault()
+    }
   });
 
   const [ error, setError ] = useState(false)
