@@ -7,9 +7,8 @@ const KeyPressListener = ({ playerState: { streams, currentStreamIndex }, dispat
 
   useEffect(() => {
     if(!runOnce.current) {
-      console.log("adding keypress listener")
       window.addEventListener('keydown', e => {
-        console.log(e.key)
+        //console.log(e.key)
         if(e.target.tagName !== 'INPUT') {
           if("123456789".indexOf(e.key) !== -1) {
             const index = parseInt(e.key) - 1

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -12,7 +12,7 @@ function EditStream({ stream, streamIndex, numStreams, addStream, saveStream, ca
   const updateStreamField = (e) => {
     setStreamCopy({
       ...streamCopy,
-      ... {
+      ...{
         [e.target.name]: e.target.value
       }
     })
@@ -49,7 +49,7 @@ function EditStream({ stream, streamIndex, numStreams, addStream, saveStream, ca
         <Form.Select name="position" onChange={(e) => setPosition(e.target.value)} defaultValue={streamIndex}>
           {[...Array(maxPosition).keys()].map((i) => {
             return (
-              <option value={i}>{i+1}</option>
+              <option key={i} value={i}>{i+1}</option>
             )
           })}
         </Form.Select>

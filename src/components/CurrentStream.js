@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { PencilSquare, TrashFill } from 'react-bootstrap-icons';
 import EditStreamModal from './EditStreamModal';
 import './CurrentStream.css';
@@ -28,7 +28,7 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
         </div>
 
         <h2>{ currentStream.homepage ? (
-          <a href={currentStream.homepage} target="_blank">{currentStream.name}</a>
+          <a href={currentStream.homepage} target="_blank" rel="noreferrer">{currentStream.name}</a>
         ) : (
           <span>{currentStream.name}</span>
         )}</h2>
