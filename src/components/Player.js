@@ -14,7 +14,6 @@ import { useParams } from 'react-router-dom';
 import { useBeforeunload } from 'react-beforeunload';
 
 const insert = (a, index, element) => {
-  console.log(`insert ${a} ${index} ${element}`)
   const a1 = a.slice(0, index)
   const a2 = a.slice(index)
   return a1.concat([ element ]).concat(a2)
@@ -51,7 +50,6 @@ function Player() {
         }
       case 'play_stream':
         // sets currentStreamIndx and plays, in one call
-        console.log("handling play_stream")
         const newState = {
           ...state,
           ...{
@@ -59,7 +57,6 @@ function Player() {
             currentStreamIndex: action.currentStreamIndex
           }
         }
-        console.log(newState)
         return newState
       case 'skip_backward':
         if(state.currentStreamIndex > 0) {

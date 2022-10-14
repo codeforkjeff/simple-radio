@@ -34,8 +34,6 @@ function SaveButton({ playerState: { streamListId, dirty, streams }, dispatchPla
       })
         .then(res => res.json())
         .then((result) => {
-          console.log("got result from persisting stream list")
-
           setShowTooltip(true)
 
           setTimeout(() => {

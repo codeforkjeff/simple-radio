@@ -27,7 +27,6 @@ const Audio = ({ playerState }) => {
     const player = document.getElementById('player')
 
     if(!runOnce.current) {
-      console.log("adding listeners to audio element")
       player.addEventListener('playing', (event) => {
         setAudioPlaying(true)
       })

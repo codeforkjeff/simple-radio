@@ -20,7 +20,6 @@ function Loader({ streamListId, dispatchPlayer, setError }) {
             }
           })
           .then((result) => {
-            console.log("got stream list from API")
             const streams = JSON.parse(result.content)
             dispatchPlayer({ type: 'set_streamlistid_and_streams', streamListId: result.hash, streams: streams })
           })

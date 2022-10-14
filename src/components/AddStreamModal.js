@@ -33,7 +33,6 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
       fetch(`/stations_reduced.json?${Date.now()}`)
         .then(res => res.json())
         .then((result) => {
-          console.log("got result")
           setStreamsDb(result)
           setStreamsDbLoadState("loaded")
         })
