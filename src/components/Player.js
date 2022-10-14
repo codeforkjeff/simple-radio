@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useParams } from 'react-router-dom';
+import { useBeforeunload } from 'react-beforeunload';
 
 function Player() {
 
@@ -76,6 +77,15 @@ function Player() {
             dirty: true
           }
         }
+      case 'edit_stream':
+        const replaced = state.streams.map((s, index) => index === action.stream_index ? action.stream : s)
+        return {
+          ...state,
+          ...{
+            streams: replaced,
+            dirty: true
+          }
+        }
       case 'remove_stream':
         const filtered = state.streams.filter((s, index) => index !== action.stream_index)
         return {
@@ -115,6 +125,12 @@ function Player() {
     streams: [],
     currentStreamIndex: null,
     isPlaying: false,
+  });
+
+  useBeforeunload((event) => {
+    if (playerState.dirty) {
+      event.preventDefault()
+    }
   });
 
   const [ error, setError ] = useState(false)

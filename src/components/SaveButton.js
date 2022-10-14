@@ -2,7 +2,7 @@ import './SaveButton.css';
 import { useRef, useState } from 'react';
 import Overlay from 'react-bootstrap/Overlay';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { SaveFill } from 'react-bootstrap-icons';
+import { BookmarkFill } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 
 function SaveButton({ playerState: { streamListId, dirty, streams }, dispatchPlayer }) {
@@ -57,7 +57,7 @@ function SaveButton({ playerState: { streamListId, dirty, streams }, dispatchPla
   return (
     <span>
       { (dirty || show) && (
-        <SaveFill ref={tooltipTarget} size="25" onClick={persist}>Save Changes</SaveFill>
+        <BookmarkFill ref={tooltipTarget} size="25" onClick={persist}>Save Changes</BookmarkFill>
       )}
     <Overlay target={tooltipTarget.current} show={showTooltip} placement="bottom">
       {(props) => (
