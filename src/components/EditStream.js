@@ -19,7 +19,7 @@ function EditStream({ stream, streamIndex, numStreams, addStream, saveStream, ca
   }
 
   // add 1 so you can add something to very end
-  const maxPosition = numStreams + 1
+  const maxPosition = numStreams + (addStream ? 1 : 0)
 
   return (
     <Container>
