@@ -3,9 +3,8 @@ import { PlayCircleFill, StopCircleFill, SkipForwardFill, SkipBackwardFill } fro
 import './StreamPlayerControls.css';
 
 function StreamPlayerControls({ playerState: {streams, currentStreamIndex, isPlaying }, dispatchPlayer }) {
-    console.log("rendering StreamPlayerControls")
 
-    console.log(`isPlaying=${isPlaying}`)
+    console.log(`StreamPlayerControls: isPlaying=${isPlaying}`)
 
     const pause = () => dispatchPlayer({ type: 'stop'})
 

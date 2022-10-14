@@ -14,30 +14,28 @@ const Audio = ({ playerState }) => {
 
   const currentStream = streams[currentStreamIndex]
 
-  // is audio actually playing (vs supposed to be playing).
+  // reflects the state of the Audio element: is it playing? (vs is it supposed to be playing).
   // only listeners on audio element should ever change this.
   const [ audioPlaying, setAudioPlaying ] = useState(false)
 
-  // ensures that useEffect below runs only once even in strict mode
-  const runOnce = useRef(false)
-
   useEffect(() => {
-    console.log("in effect, isPlaying=" + isPlaying)
+    console.log(`Audio: in effect, isPlaying=${isPlaying} audioPlaying=${audioPlaying}`)
+
+    const play = (e) => setAudioPlaying(true)
+    const stop = (e) => setAudioPlaying(false)
 
     const player = document.getElementById('player')
 
-    if(!runOnce.current) {
-      player.addEventListener('playing', (event) => {
-        setAudioPlaying(true)
-      })
-      player.addEventListener('abort', (event) => {
-        setAudioPlaying(false)
-      })
-      player.addEventListener('ended', (event) => {
-        setAudioPlaying(false)
-      })
-      runOnce.current = true
+    const listeners = {
+      'playing': play,
+      'abort': stop,
+      'ended': stop,
+      'pause': stop,
     }
+
+    Object.keys(listeners).forEach((eventType) => {
+      player.addEventListener(eventType, listeners[eventType])
+    })
 
     if(isPlaying) {
       if(!audioPlaying || currentStream.url !== player.getAttribute("src")) {
@@ -47,6 +45,12 @@ const Audio = ({ playerState }) => {
       }
     } else {
       player.pause()
+    }
+
+    return () => {
+      Object.keys(listeners).forEach((eventType) => {
+        player.removeEventListener(eventType, listeners[eventType])
+      }  )
     }
   })
 
