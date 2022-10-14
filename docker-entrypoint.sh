@@ -3,6 +3,7 @@
 CMD=$1
 
 if [ $CMD = "frontend" ]; then
+    npm run build-stations
     npm start
 elif [ $CMD = "api" ]; then
     cd api
