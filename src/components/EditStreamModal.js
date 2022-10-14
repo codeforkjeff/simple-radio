@@ -10,7 +10,7 @@ function EditStreamModal({ show, setShow, stream, streamIndex, numStreams, dispa
   const handleClose = () => setShow(false)
 
   const saveStream = (result, position) => {
-    dispatchPlayer({ type: 'edit_stream', stream_index: streamIndex, position: position, stream: result })
+    dispatchPlayer({ type: 'edit_stream', streamIndex: streamIndex, position: position, stream: result })
     setShow(false)
   }
 

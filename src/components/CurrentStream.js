@@ -9,7 +9,7 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
   const currentStream = streams[currentStreamIndex]
 
   const removeStream = () => {
-    dispatchPlayer({ type: 'remove_stream', stream_index: currentStreamIndex })
+    dispatchPlayer({ type: 'remove_stream', streamIndex: currentStreamIndex })
   }
   
   const [showEditStreamModal, setShowEditStreamModal] = useState(false);

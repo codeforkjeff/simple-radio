@@ -92,17 +92,17 @@ function Player() {
           }
         }
       case 'edit_stream':
-        const replaced = state.streams.map((s, index) => index === action.stream_index ? action.stream : s)
+        const replaced = state.streams.map((s, index) => index === action.streamIndex ? action.stream : s)
         return {
           ...state,
           ...{
             currentStreamIndex: action.position,
-            streams: move(action.stream_index, action.position, replaced),
+            streams: move(action.streamIndex, action.position, replaced),
             dirty: true
           }
         }
       case 'remove_stream':
-        const filtered = state.streams.filter((s, index) => index !== action.stream_index)
+        const filtered = state.streams.filter((s, index) => index !== action.streamIndex)
         return {
           ...state,
           ...{
