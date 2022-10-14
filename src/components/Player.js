@@ -13,6 +13,20 @@ import Row from 'react-bootstrap/Row';
 import { useParams } from 'react-router-dom';
 import { useBeforeunload } from 'react-beforeunload';
 
+const insert = (a, index, element) => {
+  console.log(`insert ${a} ${index} ${element}`)
+  const a1 = a.slice(0, index)
+  const a2 = a.slice(index)
+  return a1.concat([ element ]).concat(a2)
+}
+
+const move = (index_original, index_new, a) => {
+  // save, remove, then insert
+  const saved = a[index_original]
+  const removed = a.filter((s, index) => index !== index_original)
+  return insert(removed, index_new, saved)
+}
+
 function Player() {
 
   const { streamListId } = useParams()
@@ -73,7 +87,7 @@ function Player() {
         return {
           ...state,
           ...{
-            streams: state.streams.concat([ action.stream ]),
+            streams: insert(state.streams, action.position, action.stream),
             dirty: true
           }
         }
@@ -82,7 +96,8 @@ function Player() {
         return {
           ...state,
           ...{
-            streams: replaced,
+            currentStreamIndex: action.position,
+            streams: move(action.stream_index, action.position, replaced),
             dirty: true
           }
         }

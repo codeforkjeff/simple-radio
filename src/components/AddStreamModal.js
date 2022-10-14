@@ -50,8 +50,8 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
     setSearchResults(results)
   }
 
-  const addStream = (result) => {
-    dispatchPlayer({ type: 'add_stream', stream: result })
+  const addStream = (result, position) => {
+    dispatchPlayer({ type: 'add_stream', stream: result, position: position })
     setShow(false)
   }
 
@@ -102,6 +102,7 @@ function AddStreamModal({ show, setShow, playerState: { streams }, dispatchPlaye
         <Tab eventKey="custom" title="Custom">
           <EditStream
             stream={{}}
+            numStreams={streams.length}
             addStream={addStream}
           />
         </Tab>

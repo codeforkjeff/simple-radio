@@ -38,6 +38,7 @@ function CurrentStream({ playerState: { streams, currentStreamIndex }, dispatchP
           setShow={setShowEditStreamModal}
           stream={currentStream}
           streamIndex={currentStreamIndex}
+          numStreams={streams.length}
           dispatchPlayer={dispatchPlayer}
         />
 

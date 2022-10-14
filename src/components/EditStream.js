@@ -3,9 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
-function EditStream({ stream, addStream, saveStream, cancel }) {
+function EditStream({ stream, streamIndex, numStreams, addStream, saveStream, cancel }) {
 
   const [ streamCopy, setStreamCopy ] = useState(stream)
+
+  const [ position, setPosition ] = useState(streamIndex)
 
   const updateStreamField = (e) => {
     setStreamCopy({
@@ -15,6 +17,9 @@ function EditStream({ stream, addStream, saveStream, cancel }) {
       }
     })
   }
+
+  // add 1 so you can add something to very end
+  const maxPosition = numStreams + 1
 
   return (
     <Container>
@@ -39,11 +44,22 @@ function EditStream({ stream, addStream, saveStream, cancel }) {
         <Form.Control type="text" name="homepage" value={streamCopy['homepage']} placeholder="e.g. https://www.wync.org"onChange={updateStreamField}/>
       </Form.Group>
 
+      <Form.Group className="md-12 mb-3" controlId="position">
+        <Form.Label>Position</Form.Label>
+        <Form.Select name="position" onChange={(e) => setPosition(e.target.value)} defaultValue={streamIndex}>
+          {[...Array(maxPosition).keys()].map((i) => {
+            return (
+              <option value={i}>{i+1}</option>
+            )
+          })}
+        </Form.Select>
+      </Form.Group>
+
       { addStream && (
-        <Button onClick={() => addStream(streamCopy)}>Add</Button>
+        <Button onClick={() => addStream(streamCopy, parseInt(position))}>Add</Button>
       )}
       { saveStream && (
-        <Button onClick={() => saveStream(streamCopy)}>Save</Button>
+        <Button onClick={() => saveStream(streamCopy, parseInt(position))}>Save</Button>
       )}
       { cancel && (
         <Button onClick={cancel}>Cancel</Button>
