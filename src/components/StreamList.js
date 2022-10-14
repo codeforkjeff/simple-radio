@@ -50,7 +50,7 @@ function StreamList(props) {
         streams.map((stream, i) => {
           return (
             <Row key={i}>
-              <Col md="1" className="d-flex d-none d-lg-inline-flex align-items-center">{ i < 10 ? `${i+1}.` : ""}</Col>
+              <Col md="1" className="d-flex d-none d-lg-inline-flex align-items-center">{ i < 9 ? `${i+1}.` : ""}</Col>
               <Col md="11">
               <StreamButton
                 index={i}
