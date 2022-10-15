@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const KeyPressListener = ({ playerState: { streams, currentStreamIndex }, dispatchPlayer }) => {
+const KeyPressListener = ({ playerState: { streams, isPlaying }, dispatchPlayer }) => {
 
   useEffect(() => {
     const listener = (e) => {
@@ -10,6 +10,9 @@ const KeyPressListener = ({ playerState: { streams, currentStreamIndex }, dispat
           if(index < streams.length) {
             dispatchPlayer({ type: "play_stream", currentStreamIndex: index })
           }
+        }
+        else if (e.key === ' ') {
+          dispatchPlayer({ type: 'toggle_play' })
         }
         else if (e.key === 'ArrowRight') {
           dispatchPlayer({ type: "skip_forward" })

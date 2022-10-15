@@ -45,10 +45,17 @@ function Player() {
         return {
           ...state,
           ...{
-            isPlaying: true
+            isPlaying: state.currentStreamIndex !== null ? true : false
           }
         }
-      case 'play_stream':
+      case 'toggle_play':
+        return {
+          ...state,
+          ...{
+            isPlaying: !state.isPlaying
+          }
+        }
+        case 'play_stream':
         // sets currentStreamIndx and plays, in one call
         const newState = {
           ...state,
