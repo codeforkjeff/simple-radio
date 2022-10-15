@@ -201,13 +201,13 @@ function Player() {
                         <h2>Simple Radio</h2>
                         <p className="instructions">A simple stream player. This is
                           a <span className="text-danger">work in progress</span>.</p>
-                        <h3>Things to try:</h3>
+                        <h3>Things to try</h3>
                         <ul className="instructions">
-                          <li>Make your own stream list by adding, removing, and editing stations. 
-                            The searchable station list data is from the excellent <a href="https://www.radio-browser.info/">radio-browser</a> project.</li>
-                          <li>Save your list and bookmark the new URL to load it again in the future.</li>
-                          <li>Lists are public. Share them with your friends.</li>
-                          <li>Try the number, arrow, and spacebar keys.</li>
+                          <li>Make your own stream list by adding, removing, and editing stations.
+                            The searchable station list data is from the excellent <a href="https://www.radio-browser.info/">radio-browser</a> project</li>
+                          <li>Save your list and bookmark the new URL to load it again in the future</li>
+                          <li>Lists are public. Share them with your friends</li>
+                          <li>Try the number, arrow, and spacebar keys</li>
                         </ul>
                 </Row>
               )}
