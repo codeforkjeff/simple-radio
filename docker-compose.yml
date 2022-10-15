@@ -7,6 +7,7 @@ services:
     extends:
       file: common.yml
       service: "frontend-${ENV:-dev}"
+    restart: always
 
   api:
     build:
@@ -20,6 +21,7 @@ services:
      - all
     ports:
       - "8000:8000"
+    restart: always
     volumes:
       - ./api:/opt/simple-radio/api
       - data:/opt/simple-radio-data
