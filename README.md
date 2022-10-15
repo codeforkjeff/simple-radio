@@ -8,11 +8,10 @@ with a SINGLE click or keypress. You know, like a simple radio.
 
 https://radio.codefork.com
 
-## Features / Goals
+## Features
 
-- TODO: Add streams/stations from a searchable list
-- TODO: Save presets to html5 local storage
-- TODO: show "now playing" info from streams
+- Add streams/stations from a searchable list or by entering your own stream URLs
+- Saved stream lists are shareble with others
 
 ## Local Development
 
@@ -22,15 +21,7 @@ docker compose up --build
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Build
-
-```sh
-npm run build
-```
-
-Serve the contents of `build/` somewhere.
-
-## Deploy
+## Production Deploy
 
 ```sh
 ENV=prod docker compose up --build
