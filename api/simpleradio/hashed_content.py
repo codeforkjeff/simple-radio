@@ -6,7 +6,7 @@ import json
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
-from . import db
+from .db import crud
 from .util import get_short_hash
 
 router = APIRouter(
@@ -16,15 +16,13 @@ router = APIRouter(
 
 
 @router.get("/{hash}")
-async def get_content(hash: str, conn=Depends(db.db_conn)):
+async def get_content(hash: str, conn=Depends(crud.db_conn)):
 
-    await db.create_hashed_content_table(conn)
-
-    content = await db.get_hashed_content(conn, hash)
+    content = await crud.get_hashed_content(conn, hash)
     if not content:
         raise HTTPException(status_code=404, detail=f"Couldn't find content for hash {hash}")
 
-    await db.touch_hashed_content(conn, hash)
+    await crud.touch_hashed_content(conn, hash)
     await conn.commit()
 
     return {
@@ -34,7 +32,7 @@ async def get_content(hash: str, conn=Depends(db.db_conn)):
 
 
 @router.post("/")
-async def store_content(content: db.Content, conn=Depends(db.db_conn)):
+async def store_content(content: crud.Content, conn=Depends(crud.db_conn)):
 
     # validate
     try:
@@ -52,12 +50,10 @@ async def store_content(content: db.Content, conn=Depends(db.db_conn)):
 
     content.hash = get_short_hash(content.content)
 
-    await db.create_hashed_content_table(conn)
-
-    existing_content = await db.get_hashed_content(conn, content.hash)
+    existing_content = await crud.get_hashed_content(conn, content.hash)
 
     if not existing_content:
-        await db.store_hashed_content(conn, content)
+        await crud.store_hashed_content(conn, content)
         await conn.commit()
 
     return content
