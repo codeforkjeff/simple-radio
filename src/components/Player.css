@@ -31,3 +31,13 @@
 .click-warning-enabled:hover {
   color: #ffca2c
 }
+
+.instructions {
+  margin-left: 2rem;
+  font-size: 1.25rem;
+}
+
+.instructions li {
+  line-height: 1.75rem;
+  padding-bottom: 0.5rem;
+}
