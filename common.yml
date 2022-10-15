@@ -9,6 +9,8 @@ services:
      - all
     volumes:
       - ./src:/opt/simple-radio/src
+      # this ensures stations json file persists across restarts
+      - data-public:/opt/simple-radio/public
 
   nginx:
     build:

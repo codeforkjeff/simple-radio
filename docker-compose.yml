@@ -31,3 +31,4 @@ networks:
 
 volumes:
   data: {}
+  data-public: {}
