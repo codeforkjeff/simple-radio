@@ -7,6 +7,7 @@ if [ $CMD = "frontend" ]; then
     npm start
 elif [ $CMD = "api" ]; then
     cd api
+    python3 -m simpleradio.db.migrate
     if [ $ENV = "dev" ]; then
         uvicorn simpleradio.webapp:app --host 0.0.0.0 --reload
     elif [ $ENV = "prod" ]; then
