@@ -41,3 +41,8 @@
   line-height: 1.75rem;
   padding-bottom: 0.5rem;
 }
+
+.stream-status {
+  background-color: lightgray;
+  padding: 1em;
+}

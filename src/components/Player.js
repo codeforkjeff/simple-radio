@@ -34,6 +34,13 @@ function Player() {
 
   const playerReducer = (state, action) => {
     switch(action.type) {
+      case 'set_stream_status':
+        return {
+          ...state,
+          ...{
+            streamStatus: action.streamStatus
+          }
+        }
       case 'stop':
         return {
           ...state,
@@ -144,6 +151,7 @@ function Player() {
     streams: [],
     currentStreamIndex: null,
     isPlaying: false,
+    streamStatus: "",
   });
 
   useBeforeunload((event) => {
@@ -187,6 +195,7 @@ function Player() {
                 </Row>
               )}
               { playerState.currentStreamIndex !== null && (
+                <>
                 <Row>
                   <Col md="12">
                   <StreamPlayerControls
@@ -195,6 +204,12 @@ function Player() {
                   />
                   </Col>
                 </Row>
+                <Row>
+                  <Col md="12">
+                    <div className="stream-status">Status: {playerState.streamStatus}</div>
+                  </Col>
+                </Row>
+                </>
               )}
               { playerState.currentStreamIndex === null && (
                 <Row md="12">
@@ -225,6 +240,7 @@ function Player() {
     )}
     <Audio
       playerState={playerState}
+      dispatchPlayer={dispatchPlayer}
     />
     </>
   );

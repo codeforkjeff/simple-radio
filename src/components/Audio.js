@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /*
 This should get rendered on initial page load, so that browser doesn't restrict
@@ -9,7 +9,7 @@ https://stackoverflow.com/questions/57504122/browser-denying-javascript-play
 React's render won't re-create the audio element as long as there's no state
 attached to it.
 */
-const Audio = ({ playerState }) => {
+const Audio = ({ playerState, dispatchPlayer }) => {
   const { currentStreamIndex, streams, isPlaying } = playerState
 
   const currentStream = streams[currentStreamIndex]
@@ -21,16 +21,34 @@ const Audio = ({ playerState }) => {
   useEffect(() => {
     console.log(`Audio: in effect, isPlaying=${isPlaying} audioPlaying=${audioPlaying}`)
 
-    const play = (e) => setAudioPlaying(true)
-    const stop = (e) => setAudioPlaying(false)
-
     const player = document.getElementById('player')
 
     const listeners = {
-      'playing': play,
-      'abort': stop,
-      'ended': stop,
-      'pause': stop,
+      'abort': (e) => {
+        setAudioPlaying(false)
+        dispatchPlayer({ type: "set_stream_status", streamStatus: "Stream aborted" })
+      },
+      'ended': (e) => {
+        setAudioPlaying(false)
+        dispatchPlayer({ type: "set_stream_status", streamStatus: "Stream ended" })
+      },
+      'loadstart': (e) => {
+        setAudioPlaying(true)
+        dispatchPlayer({ type: "set_stream_status", streamStatus: "Loading stream..." })
+      },
+      'playing': (e) => {
+        setAudioPlaying(true)
+        dispatchPlayer({ type: "set_stream_status", streamStatus: "Playing" })
+      },
+      'pause': (e) => {
+        setAudioPlaying(false)
+        dispatchPlayer({ type: "set_stream_status", streamStatus: "Stream paused" })
+      },
+      'error': (e) => {
+        setAudioPlaying(false)
+        dispatchPlayer({ type: "stop" })
+        dispatchPlayer({ type: "set_stream_status", streamStatus: "There was an error playing the stream, check that the URL is valid" })
+      },
     }
 
     Object.keys(listeners).forEach((eventType) => {
@@ -44,7 +62,9 @@ const Audio = ({ playerState }) => {
         player.play()
       }
     } else {
-      player.pause()
+      if(audioPlaying) {
+        player.pause()
+      }
     }
 
     return () => {
