@@ -24,5 +24,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 ## Production Deploy
 
 ```sh
-ENV=prod docker compose up --build
+ENV=prod docker compose up --build -d
 ```
