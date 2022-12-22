@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-     - all
+      - all
     volumes:
       - ./src:/opt/simple-radio/src
       # this ensures stations json file persists across restarts
@@ -17,11 +17,9 @@ services:
       context: .
       target: nginx
     networks:
-     - all
+      - all
     ports:
       - "3000:80"
-    volumes:
-      - .:/code
 
   frontend-dev:
     build:
