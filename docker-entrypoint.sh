@@ -7,11 +7,11 @@ if [ $CMD = "frontend" ]; then
     npm start
 elif [ $CMD = "api" ]; then
     cd api
-    python3 -m simpleradio.db.migrate
+    uv run python3 -m simpleradio.db.migrate
     if [ $ENV = "dev" ]; then
-        uvicorn simpleradio.webapp:app --host 0.0.0.0 --reload
+        uv run uvicorn simpleradio.webapp:app --host 0.0.0.0 --reload
     elif [ $ENV = "prod" ]; then
-        gunicorn -w 2 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 simpleradio.webapp:app
+        uv run gunicorn -w 2 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 simpleradio.webapp:app
     fi
 else
     exec $@

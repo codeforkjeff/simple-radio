@@ -1,22 +1,21 @@
 
-FROM debian:bullseye-slim AS debian-src
+FROM debian:trixie-slim AS debian-src
 
-RUN --mount=type=cache,mode=0777,target=/var/cache/apt \
-	apt-get update && \
-    apt-get install -y curl git python3 python3-pip python3-venv sqlite3 vim virtualenvwrapper
-
-RUN --mount=type=cache,mode=0777,target=/var/cache/apt \
+RUN \
+    apt-get update && \
+    apt-get install -y curl git python3 python3-pip python3-venv sqlite3 vim virtualenvwrapper && \
     curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y nodejs
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 ENV PIP_CACHE_DIR=/var/cache/pip
 
 WORKDIR /opt/simple-radio
 
-COPY api/requirements.txt api/requirements.txt
+COPY api/pyproject.toml api/uv.lock api
 
-RUN --mount=type=cache,mode=0777,target=/var/cache/pip \
-    pip install -r api/requirements.txt
+RUN cd api && uv sync --locked --no-dev
 
 COPY api .
 

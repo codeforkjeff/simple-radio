@@ -22,7 +22,7 @@ services:
     volumes:
       - ./src:/opt/simple-radio/src
       # this ensures stations json file persists across restarts
-      - data-public:/opt/simple-radio/public
+      - simple_radio_data_public:/opt/simple-radio/public
       
   frontend-prod:
     extends:

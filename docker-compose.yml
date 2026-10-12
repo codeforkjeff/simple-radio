@@ -1,15 +1,15 @@
 
-version: "3.9"
-
 services:
 
   frontend:
+    container_name: simple_radio_frontend
     extends:
       file: common.yml
       service: "frontend-${ENV:-dev}"
     restart: always
 
   api:
+    container_name: simple_radio_api
     build:
       context: .
       target: debian-src
@@ -20,15 +20,17 @@ services:
     networks:
      - all
     ports:
-      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:3001:8000"
     restart: always
     volumes:
       - ./api:/opt/simple-radio/api
-      - data:/opt/simple-radio-data
+      - simple_radio_data:/opt/simple-radio-data
 
 networks:
   all:
 
 volumes:
-  data: {}
-  data-public: {}
+  simple_radio_data:
+    name: simple_radio_data
+  simple_radio_data_public:
+    name: simple_radio_data_public
