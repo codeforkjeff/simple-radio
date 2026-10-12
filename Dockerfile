@@ -13,6 +13,8 @@ ENV PIP_CACHE_DIR=/var/cache/pip
 
 WORKDIR /opt/simple-radio
 
+RUN mkdir api
+
 COPY api/pyproject.toml api/uv.lock api
 
 RUN cd api && uv sync --locked --no-dev
