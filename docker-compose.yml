@@ -12,7 +12,7 @@ services:
     container_name: simple_radio_api
     build:
       context: .
-      target: debian-src
+      target: debian-api
     command: "api"
     environment:
       SIMPLE_RADIO_DB: "/opt/simple-radio-data/simple_radio.db"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 THIS_DIR=$( dirname -- "$( readlink -f -- "$0"; )"; )
 PROJECT_DIR=$( readlink -f -- "$THIS_DIR/.."; )
 
