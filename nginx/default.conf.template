@@ -1,7 +1,7 @@
 server {
     listen       80;
     listen  [::]:80;
-    server_name  $SERVER_NAME;
+    server_name  ${SERVER_NAME};
 
     root   /usr/share/nginx/html;
     index  index.html index.htm;
@@ -29,7 +29,7 @@ server {
         proxy_set_header Connection $connection_upgrade;
         proxy_redirect off;
         proxy_buffering off;
-        proxy_pass   http://api:8000;
+        proxy_pass   http://simple_radio_api:8000;
     }
 
     # proxy the PHP scripts to Apache listening on 127.0.0.1:80
