@@ -19,7 +19,7 @@ COPY api/pyproject.toml api/uv.lock api
 
 RUN cd api && uv sync --locked --no-dev && uv cache clean
 
-COPY api .
+COPY api ./api
 
 COPY docker-entrypoint.sh .
 
